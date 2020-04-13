@@ -17,7 +17,7 @@
 
 start() ->
     application:start(crypto),%%这是erlang的加密模块。
-    application:start(main).%%这个是main.app,里面就是让运行main.erl模块，之后运行下面的start
+    application:start(main).%%这个是main.app
 
 %%----------------------------------------------------
 %% otp apis

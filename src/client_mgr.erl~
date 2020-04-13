@@ -29,11 +29,11 @@ start_link() ->
     gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
 init([]) ->
-    ?P("开始启动.client_mgr.erl.~n"),
+    ?P("开始启动..~n"),
     ets:new(client, [set, named_table, public, {keypos, #client.id}]),
-    {ok, Listen} = gen_tcp:listen(?port, [list,{active,  true}, {reuseaddr, true}]),%%监听8100端口，创建主动套接字，且多个实例可用一个端口。
+    {ok, Listen} = gen_tcp:listen(?port, [list,{active,  true}, {reuseaddr, true}]),
     State = #state{socket = Listen, acceptors = empty_listeners(5, Listen)},
-    ?P("启动完成.client_mgr.erl~n"),
+    ?P("启动完成~n"),
     {ok, State}.
 
 handle_call(_Request, _From, State) ->

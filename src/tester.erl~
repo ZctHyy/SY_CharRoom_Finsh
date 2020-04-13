@@ -11,7 +11,7 @@
 
 -record(state, {socket}).
 
--define(Port,8100).
+-define(Port,8749).
 
 start_link() ->
 gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).

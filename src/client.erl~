@@ -17,8 +17,10 @@ start_link(ListenSocket) ->
 
 init([ListenSocket]) ->
     ?P("start Connect ~n"),%%common.hrl中的宏定义，P(F).
+    ?P("client1 ~n~p"),
 	gen_server:cast(self(), accept),%%播发。此处发给自己一个accept原子消息，然后下面的handle_cast收到消息并开始处理.
     State = #state{listen = ListenSocket},%%定义记录，记录名字为state，里面包含了映射。
+    ?p("client2 ~n~p"),
     {ok, State}.
 
 handle_call(_Request, _From, State) ->

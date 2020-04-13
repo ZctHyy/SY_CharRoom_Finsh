@@ -1,0 +1,50 @@
+{application, main, ----声明这是一个应用元组数据，名称为main
+    [
+        {description, "main server"}----这是说明部分
+        ,{vsn, "1"}----这是版本号
+        ,{registered, [main]}----注册进程，注册到系统的单例模块进行名。
+        ,{applications, [kernel, stdlib, crypto]}----应用启动之前要提前运行的OTP模块进程。
+        ,{mod, {main, []}}----应用启动时的模块以及启动参数
+        ,{env, ----静态参数，application:get_env(ParamKey)可以获得对应参数值。
+            [
+                {cookie, '<#cookie#>'}----该参数等待zone文件夹下面的study 1的start.sh来补充。
+                ,{host_id, <#zone_id#>}
+                ,{platform, <<"<#platform#>">>}
+                ,{host, "<#host#>"}
+                ,{port, 8100}
+                ,{tcp_acceptor_num, 2}
+                ,{tcp_options, [
+                        binary
+                        ,{packet, 0}
+                        ,{active, false}
+                        ,{reuseaddr, true}
+                        ,{nodelay, false}
+                        ,{delay_send, true}
+                        ,{exit_on_close, false}
+                        ,{send_timeout, 10000}
+                        ,{send_timeout_close, false}
+                    ]
+                }
+            ]
+        }
+    ]
+}.
+{application,test,                      % 名称
+   [{description,"Test application"},   % 描述
+    {vsn, "1.0.0"},                     % 版本
+    {id, Id},                           % id 同 erl -id ID
+    {modules, [test_app,test_sup]},     % 所有模块，systools用来生成script/tar文件
+    {maxP, Num},                        % 最大进程数
+    {maxT, Time},                       % 运行时间 单位毫秒
+    {registered, [test_app]},           % 指定名称，systools用来解决名字冲突
+    {included_applictions, []},         % 指定子app，加载但不启动
+    {mod, {test_app,[]}},               % 启动模块，[]为参数
+    {env, []},                          % 配置env，可以使用application:get_env获取
+    {applications,[kernel,stdlib]}]}.   % 依赖项，启动app前，必须有启动的app
+
+
+
+application运行时可能需要提供某些参数，以调整运行时的行为。
+例如数据库的连接参数（主机名，端口号等），这些参数可以存放在静态配置文件中，
+application运行时可以通过调用application:get_env(ParamKey)得到当前application配置的参数值。
+get_env(Foo, Par)得到某个指定application，Foo的配置参数值.
