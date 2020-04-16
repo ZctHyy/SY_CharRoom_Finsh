@@ -1,0 +1,26 @@
+1、main.app->应用启动时候跑起main模块
+2、main模块跑起来跑起erlang加密模块以及main的start
+3、跑起节点监控树的头main_sup，然后跑两个client的监控点,client_sup以及client_mgr。
+4、client_mgr的初始化方法则会启动5个client_sup，clinent_sup在初始化方法init之后又会监控client
+5、client启动之后调用启动函数，启动函数广播自己。开始等待接收信息。
+
+
+
+client_mgr中init
+先创建了一个ets存放用户id的表，叫做客户表。
+然后使用gen_tcp：listen功能监听8100端口，当有消息的时候便可以获得他的套接字之后开始进行会话。
+State：是一张映射表state，socket是获取来的套接字，之后的acceptor则是监听的，启动了5个client_sup。
+因此client_sup则是监听客户端的。
+
+client_sup中init
+启动它的监控worker，client
+client中，从start_link开始有个ListenSocket参数，之后init，广播调用自己，因为广播是异步的，
+所以那个state映射的来源就是异步来的
+gen_tcp:accept，挂起等待连接，然后收到连接后就返回套接字Connect。
+之后向下走走到clinent_connect哪里，开始初始化init，其中的参数是有套接字的
+ets记录一份客户表。
+gen_tcp:controlling_process(Connect, Pid),
+为套接字分配PID进程，控制进程接受来自套接字发送的数据，如果不是该套接字发送的则显示错误。
+
+tester跑起来之后，因为tester已经初始化的时候调用自己的cast connect 所以会自己链接，
+gen_tcp.client会收到响应。

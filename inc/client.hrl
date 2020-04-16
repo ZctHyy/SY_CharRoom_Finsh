@@ -16,4 +16,6 @@
 		,status
         %%｛本次登陆时间，上次下线时间｝
         ,time_info
+		%%登记所处位置
+		,location
          }).

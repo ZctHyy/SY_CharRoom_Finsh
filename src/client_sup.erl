@@ -16,6 +16,6 @@
 start_link()->
     supervisor:start_link({local, ?MODULE}, ?MODULE, [[]]).
 
-init(_Arg)->
+init(_Arg)->%%startChild(LSOCK)哪里来的参数 
     {ok, {{simple_one_for_one, 10, 10},
             [{client, {client, start_link, []}, temporary, 1000, worker, [client]}]}}.
