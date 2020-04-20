@@ -33,7 +33,8 @@ init([]) ->
     ?P("开始启动.client_mgr.erl.~n"),
     %%named_table,代表可以直接用表名进行操作
     %%而最后一个参数则是用#client.id作为键然后去获取整个{keypos，#client.id}的值。  
-    ets:new(croom, [set, named_table, public , {keypos,#croom.name}]),
+    ets:new(croom, [set, named_table, public,  {keypos, #croom.name}]),
+    ets:insert(croom,#croom{name=livingroom,status=open}),
     %%这也是聊天室的配置表，主要是房间的配置。	    
     ets:new(client, [set, named_table, public, {keypos, #client.id}]),
     %%这是整个聊天室的客户记录表。

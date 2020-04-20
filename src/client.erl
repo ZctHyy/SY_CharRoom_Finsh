@@ -24,7 +24,6 @@ init([ListenSocket]) ->
 
 handle_call(_Request, _From, State) ->
     {noreply, State}.
-
 handle_cast(accept ,State) ->
     
     io:format("State: ~n~p",[State]),
@@ -36,7 +35,6 @@ handle_cast(accept ,State) ->
     gen_tcp:controlling_process(Connect, Pid),%%所有创建了套接字的进程叫做控制进程，我们这里的控制进程是mgr那里跑起来的，然后我们这里用client_conn哪里处理问题，所以就要绑定另外一个PID。因此之后我们所处理的东西都会转过去。
     gen_server:cast(self(), accept),
     NewState = State#state{socket = Connect},
-    io:format("NewState: ~n ~p",[NewState]),
     {noreply,NewState};%%产生新的状态。
 handle_cast(_Msg, State) ->
     {noreply, State}.
