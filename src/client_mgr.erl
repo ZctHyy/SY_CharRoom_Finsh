@@ -30,19 +30,17 @@ start_link() ->
     gen_server:start_link({local, ?MODULE}, ?MODULE, [], []).
 
 init([]) ->
-    ?P("开始启动.client_mgr.erl.~n"),
-    %%named_table,代表可以直接用表名进行操作
-    %%而最后一个参数则是用#client.id作为键然后去获取整个{keypos，#client.id}的值。  
-    ets:new(croom, [set, named_table, public,  {keypos, #croom.name}]),
-    ets:insert(croom,#croom{name=livingroom,status=open}),
-    %%这也是聊天室的配置表，主要是房间的配置。	    
+    ?P("开始启动..~n"),
+    %%启动监听
+
     ets:new(client, [set, named_table, public, {keypos, #client.id}]),
-    %%这是整个聊天室的客户记录表。
-    {ok, Listen} = gen_tcp:listen(?port, [binary,{active,  true}, {reuseaddr, true}]),
-    %%监听8100端口，创建主动套接字，且多个实例可用一个端口。
+    {ok, Listen} = gen_tcp:listen(?port, [binary,{active,  true}, {reuseaddr, true}]),  %%发送类型自动转成binary
+    %%创建5个连接
     State = #state{socket = Listen, acceptors = empty_listeners(5, Listen)},
-    %%挂起连接，等待客户端链接进来获取其套接字进行通信.
-    ?P("启动完成.client_mgr.erl~n"),
+    user_manager:start_link(),
+    room_manager:start_link(),
+    ?P("启动完成~n"),
+       
     {ok, State}.
 
 handle_call(_Request, _From, State) ->
