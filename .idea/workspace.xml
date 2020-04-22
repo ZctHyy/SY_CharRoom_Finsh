@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ae1f798e-4ef5-40e4-af9d-6af637224b94" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/inc/client.hrl" beforeDir="false" afterPath="$PROJECT_DIR$/inc/client.hrl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inc/login.hrl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client.erl" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_conn.erl" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_conn.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client_mgr.erl" beforeDir="false" afterPath="$PROJECT_DIR$/src/client_mgr.erl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tester.erl" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester.erl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ebin/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -105,6 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1587437635175</updated>
       <workItem from="1587437636659" duration="21099000" />
+      <workItem from="1587516561634" duration="289000" />
     </task>
     <servers />
   </component>
@@ -116,7 +113,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
